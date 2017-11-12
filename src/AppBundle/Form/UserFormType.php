@@ -25,13 +25,6 @@ class UserFormType extends AbstractType
                     'yes' => true,
                     'no' => false
                 ]
-            ])
-            ->add('studiedGenuses', EntityType::class, [
-                'class' => Genus::class,
-                'multiple' => true,
-                'expanded' => true,
-                'choice_label' => 'name',
-                'by_reference' => false,
             ]);
     }
 

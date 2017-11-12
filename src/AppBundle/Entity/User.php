@@ -1,11 +1,14 @@
 <?php
+
 namespace AppBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="user")
@@ -177,21 +180,5 @@ class User implements UserInterface
     public function getStudiedGenuses()
     {
         return $this->studiedGenuses;
-    }
-    public function addStudiedGenus(Genus $genus)
-    {
-        if ($this->studiedGenuses->contains($genus)) {
-            return;
-        }
-        $this->studiedGenuses[] = $genus;
-        $genus->addGenusScientist($this);
-    }
-    public function removeStudiedGenus(Genus $genus)
-    {
-        if (!$this->studiedGenuses->contains($genus)) {
-            return;
-        }
-        $this->studiedGenuses->removeElement($genus);
-        $genus->removeGenusScientist($this);
     }
 }
