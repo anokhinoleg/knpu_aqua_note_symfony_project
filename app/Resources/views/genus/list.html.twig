@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="container-fluid">
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Genus</th>
                 <th># of species</th>
                 <th>Last Updated</th>
+                <th>Subfamily</th>
+                <th># of scientists</th>
             </tr>
         </thead>
         <tbody>
@@ -14,7 +17,7 @@
                 <tr>
                     <td>
                         <a href="{{ path('genus_show',{
-                            'genusName':genus.name
+                            'slug':genus.slug
                         }) }}">{{ genus.name }}</a>
 
                     </td>
@@ -22,8 +25,11 @@
                     <td>
                         {{ genus.updatedAt|date('Y-m-d') }}
                     </td>
+                    <td>{{ genus.subFamily.name }}</td>
+                    <td>{{ genus.genusScientists|length }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    </div>
 {% endblock %}

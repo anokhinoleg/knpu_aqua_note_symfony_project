@@ -23,12 +23,19 @@
             {% block navigation %}
             <ul class="navi">
                 <li class="search"><a href="#" class="js-header-search-toggle"><i class="fa fa-search"></i></a></li>
-                <li><a href="#">Login</a></li>
+                {% if is_granted('ROLE_USER') %}
+                    <li><a href="{{ path('security_logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ path('security_login') }}">Login</a></li>
+                {% endif %}
             </ul>
             {% endblock %}
         </header>
 
         <div class="main-content">
+            {% for msg in app.session.flashBag.get('success') %}
+                <div class="alert alert-success">{{ msg }}</div>
+            {% endfor %}
             {% block body %}{% endblock %}
         </div>
 

@@ -1,0 +1,25 @@
+{% extends 'admin/genus/formLayout.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Edit Genus</h1>
+                {{ include('admin/genus/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function() {
+            var $wrapper = $('.js-genus-scientist-wrapper');
+            $wrapper.on('click', '.js-remove-scientist', function(e) {
+                e.preventDefault();
+                $(this).closest('.js-genus-scientist-item')
+                    .fadeOut("slow")
+                    .remove();
+            });
+        });
+    </script>
+{% endblock %}

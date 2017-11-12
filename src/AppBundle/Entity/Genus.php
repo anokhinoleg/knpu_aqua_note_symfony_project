@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: olegyurievich
- * Date: 28.04.17
- * Time: 10:04
- */
-
 namespace AppBundle\Entity;
-
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GenusRepository")
  * @ORM\Table(name="genus")
@@ -22,108 +16,163 @@ class Genus
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
     private $name;
-
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
+     * @Gedmo\Slug(fields={"name"})
+     */
+    private $slug;
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SubFamily")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $subFamily;
-
     /**
+     * @Assert\NotBlank()
+     * @Assert\Range(min=0, minMessage="Negative species! Come on...")
      * @ORM\Column(type="integer")
      */
     private $speciesCount;
-
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $funFact;
-
     /**
      * @ORM\Column(type="boolean")
      */
     private $isPublished = true;
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="date")
+     */
+    private $firstDiscoveredAt;
+    /**
+     * @ORM\OneToMany(targetEntity="GenusNote", mappedBy="genus")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
+     */
+    private $notes;
 
     /**
-     * @return mixed
+     * @ORM\OneToMany(
+     *     targetEntity="GenusScientist",
+     *     mappedBy="genus",
+     *     fetch="EXTRA_LAZY",
+     *     orphanRemoval=true
+     * )
      */
+    private $genusScientists;
+    public function __construct()
+    {
+        $this->notes = new ArrayCollection();
+        $this->genusScientists = new ArrayCollection();
+    }
+    public function getId()
+    {
+        return $this->id;
+    }
     public function getName()
     {
         return $this->name;
     }
-
-    /**
-     * @param mixed $name
-     */
     public function setName($name)
     {
         $this->name = $name;
     }
-
     /**
-     * @return mixed
+     * @return SubFamily
      */
     public function getSubFamily()
     {
         return $this->subFamily;
     }
-
-    /**
-     * @param mixed $subFamily
-     */
-    public function setSubFamily($subFamily)
+    public function setSubFamily(SubFamily $subFamily = null)
     {
         $this->subFamily = $subFamily;
     }
-
-    /**
-     * @return mixed
-     */
     public function getSpeciesCount()
     {
         return $this->speciesCount;
     }
-
-    /**
-     * @param mixed $speciesCount
-     */
     public function setSpeciesCount($speciesCount)
     {
         $this->speciesCount = $speciesCount;
     }
-
-    /**
-     * @return mixed
-     */
     public function getFunFact()
     {
         return $this->funFact;
     }
-
-    /**
-     * @param mixed $funFact
-     */
     public function setFunFact($funFact)
     {
         $this->funFact = $funFact;
     }
-
     public function getUpdatedAt()
     {
-        return new \DateTime('-'.rand(0,100).' days');
+        return new \DateTime('-'.rand(0, 100).' days');
     }
-
-    /**
-     * @param mixed $isPublished
-     */
     public function setIsPublished($isPublished)
     {
         $this->isPublished = $isPublished;
     }
+    public function getIsPublished()
+    {
+        return $this->isPublished;
+    }
+    /**
+     * @return ArrayCollection|GenusNote[]
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+    public function getFirstDiscoveredAt()
+    {
+        return $this->firstDiscoveredAt;
+    }
+    public function setFirstDiscoveredAt(\DateTime $firstDiscoveredAt = null)
+    {
+        $this->firstDiscoveredAt = $firstDiscoveredAt;
+    }
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+    public function addGenusScientist(User $user)
+    {
+        if ($this->genusScientists->contains($user)) {
+            return;
+        }
+        $this->genusScientists[] = $user;
+        // not needed for persistence, just keeping both sides in sync
+        $user->addStudiedGenus($this);
+    }
+    public function removeGenusScientist(GenusScientist $genusScientist)
+    {
+        if (!$this->genusScientists->contains($genusScientist)) {
+            return;
+        }
+        $this->genusScientists->removeElement($genusScientist);
+        // not needed for persistence, just keeping both sides in sync
+        $genusScientist->setGenus(null);
+    }
+    /**
+     * @return ArrayCollection|GenusScientist[]
+     */
+    public function getGenusScientists()
+    {
+        return $this->genusScientists;
+    }
 
-
+//    public function __toString()
+//    {
+//        return $this->getName();
+//    }
 }

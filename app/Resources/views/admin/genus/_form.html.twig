@@ -1,0 +1,30 @@
+{{ form_start(genusForm) }}
+    {{ form_errors(genusForm) }}
+    {{ form_row(genusForm.name) }}
+    {{ form_row(genusForm.subFamily) }}
+    {{ form_row(genusForm.speciesCount, {
+        'label' : 'Number of species'
+    }) }}
+    {{ form_row(genusForm.funFact) }}
+    {{ form_row(genusForm.isPublished,{
+        help: 'Should this genus be shown on the site?'
+    }) }}
+    {{ form_row(genusForm.firstDiscoveredAt) }}
+    <h3>Scientists</h3>
+    <div class="row">
+        <div class="row js-genus-scientist-wrapper">
+        {% for genusScientistForm in genusForm.genusScientists %}
+            <div class="col-xs-4 js-genus-scientist-item">
+                <a href="#" class="js-remove-scientist pull-right">
+                    <span class="fa fa-close"></span>
+                </a>
+                {{ form_errors(genusScientistForm) }}
+                {{ form_row(genusScientistForm.user) }}
+                {{ form_row(genusScientistForm.yearsStudied) }}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    {{ form_row(genusForm.genusScientists) }}
+    <button type="submit" class="btn btn-primary" formnovalidate >Save</button>
+{{ form_end(genusForm) }}

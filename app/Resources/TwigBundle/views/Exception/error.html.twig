@@ -20,11 +20,19 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
         .header {
+            min-width: 100%;
             justify-content: center;
         }
         .main-content {
-
+            flex: 1 1 auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
