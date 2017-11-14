@@ -36,5 +36,5 @@ AppBundle\Entity\GenusScientist:
     genus.scientist_{1..50}:
         user: '@user.aquanaut_*'
         genus: '@genus_*'
-        yearsStudied: <numberBetween(1, 30)
+        yearsStudied: <numberBetween(1, 30)>
 

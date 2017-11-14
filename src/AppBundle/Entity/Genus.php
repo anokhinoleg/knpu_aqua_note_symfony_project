@@ -61,6 +61,7 @@ class Genus
     private $notes;
 
     /**
+     * @Assert\Valid()
      * @ORM\OneToMany(
      *     targetEntity="GenusScientist",
      *     mappedBy="genus",

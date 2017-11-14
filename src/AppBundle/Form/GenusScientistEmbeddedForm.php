@@ -2,7 +2,6 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Genus;
 use AppBundle\Entity\GenusScientist;
 use AppBundle\Entity\User;
 use AppBundle\Repository\UserRepository;
@@ -20,7 +19,7 @@ class GenusScientistEmbeddedForm extends AbstractType
                 'class' => User::class,
                 'choice_label' => 'email',
                 'query_builder' => function(UserRepository $repo) {
-                    $repo->createIsScientistQueryBuilder();
+                    return $repo->createIsScientistQueryBuilder();
                 }
             ])
             ->add('yearsStudied');
@@ -29,7 +28,7 @@ class GenusScientistEmbeddedForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\GenusScientist'
+            'data_class' => GenusScientist::class
         ]);
     }
 
@@ -38,3 +37,4 @@ class GenusScientistEmbeddedForm extends AbstractType
         return 'app_bundle_genus_scientist_embedded_form';
     }
 }
+
