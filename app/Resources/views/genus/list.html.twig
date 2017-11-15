@@ -26,7 +26,10 @@
                         {{ genus.updatedAt|date('Y-m-d') }}
                     </td>
                     <td>{{ genus.subFamily.name }}</td>
-                    <td>{{ genus.genusScientists|length }}</td>
+                    <td>
+                        {{ genus.genusScientists|length }}
+                        ({{ genus.expertScientists|length }} experts)
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
