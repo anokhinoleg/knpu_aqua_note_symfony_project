@@ -2,7 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Repository\GenusScientistRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -179,9 +181,7 @@ class Genus
 
     public function getExpertScientists()
     {
-        return $this->getGenusScientists()->filter(function (GenusScientist $genusScientist) {
-            return $genusScientist->getYearsStudied() > 10;
-        });
+        return $this->getGenusScientists()->matching(GenusScientistRepository::createExpertCriteria());
     }
 //    public function __toString()
 //    {

@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     message="This user is already studying this genus",
  *     errorPath="user"
  * )
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\GenusScientistRepository")
  * @ORM\Table(name="genus_scientist")
  */
 class GenusScientist
