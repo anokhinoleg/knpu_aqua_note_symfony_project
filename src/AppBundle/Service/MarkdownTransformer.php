@@ -8,7 +8,6 @@
 
 namespace AppBundle\Service;
 
-
 use Doctrine\Common\Cache\Cache;
 use Knp\Bundle\MarkdownBundle\MarkdownParserInterface;
 
@@ -35,7 +34,6 @@ class MarkdownTransformer
         $str = $this->markdownParser
             ->transformMarkdown($str);
         $cache->save($key, $str);
-
         return $str;
     }
 }

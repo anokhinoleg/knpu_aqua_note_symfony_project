@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Genus {{ genus.name }}{% endblock %}
-
 {% block body %}
     <section>
         <h2 class="genus-name">{{ genus.name }}</h2>
@@ -30,7 +28,6 @@
                                     <span class="fa fa-close"></span>
                                 </a>
                             </li>
-
                         {% endfor %}
                         </ul>
                     </dd>
@@ -39,12 +36,9 @@
         </div>
         <div id="js-notes-wrapper"></div>
     </section>
-
 {% endblock %}
-
 {% block javascripts %}
     {{ parent() }}
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>

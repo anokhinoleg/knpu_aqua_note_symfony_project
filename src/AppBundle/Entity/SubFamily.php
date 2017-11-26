@@ -8,7 +8,6 @@
 
 namespace AppBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,6 +22,7 @@ class SubFamily
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
      * @ORM\Column(type="string")
      */
@@ -56,5 +56,4 @@ class SubFamily
     {
         return $this->getName();
     }
-
 }

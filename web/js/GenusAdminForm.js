@@ -9,25 +9,19 @@
         });
         $wrapper.on('click', '.js-genus-scientist-add', function (e) {
             e.preventDefault();
-
             var prototype = $wrapper.data('prototype');
-
             // get the new index
             var index = $wrapper.data('index');
-
             var newForm = prototype;
             // You need this only if you didn't set 'label' => false in your tags field in TaskType
             // Replace '__name__label__' in the prototype's HTML to
             // instead be a number based on how many items we have
             // newForm = newForm.replace(/__name__label__/g, index);
-
             // Replace '__name__' in the prototype's HTML to
             // instead be a number based on how many items we have
             newForm = newForm.replace(/__name__/g, index);
-
             // increase the index with one for the next item
             $wrapper.data('index', index + 1);
-
             // Display the form in the page before the "new" link
             $(this).before(newForm);
         });

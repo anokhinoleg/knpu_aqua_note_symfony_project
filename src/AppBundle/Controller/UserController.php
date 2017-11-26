@@ -8,7 +8,6 @@
 
 namespace AppBundle\Controller;
 
-
 use AppBundle\Entity\User;
 use AppBundle\Form\UserFormType;
 use AppBundle\Form\UserRegistrationForm;

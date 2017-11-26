@@ -29,5 +29,4 @@ class UserRegistrationForm extends AbstractType
             'validation_groups' => ['Default', 'Registration'],
         ]);
     }
-
 }

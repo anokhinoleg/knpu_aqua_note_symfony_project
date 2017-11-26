@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 class GenusController extends Controller
 {
     /**
+     * Use this route for testing
      * @Route("/genus/new")
      */
     public function newAction()

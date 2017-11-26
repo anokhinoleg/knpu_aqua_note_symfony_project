@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @UniqueEntity(
  *     fields={"genus", "user"},
@@ -18,7 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class GenusScientist
 {
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")

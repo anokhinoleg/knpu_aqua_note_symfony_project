@@ -8,7 +8,6 @@
 
 namespace AppBundle\Repository;
 
-
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 

@@ -122,7 +122,7 @@ class GenusNote
     }
 
     /**
-     * @return mixed
+     * @return Genus
      */
     public function getGenus()
     {
@@ -136,5 +136,4 @@ class GenusNote
     {
         $this->genus = $genus;
     }
-
 }

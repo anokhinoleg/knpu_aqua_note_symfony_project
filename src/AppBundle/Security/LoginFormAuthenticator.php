@@ -8,8 +8,6 @@
 
 namespace AppBundle\Security;
 
-
-
 use AppBundle\Form\LoginForm;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -27,7 +25,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
-
     use TargetPathTrait;
 
     private $formFactory;
@@ -38,10 +35,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     private $passwordEncoder;
 
-
     public function __construct(FormFactoryInterface $formFactory, EntityManager $em, RouterInterface $router, UserPasswordEncoderInterface $passwordEncoder)
     {
-
         $this->formFactory = $formFactory;
         $this->em = $em;
         $this->router = $router;
@@ -54,12 +49,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         if (!$isLoginSubmit) {
             return;
         }
-
         $form = $this->formFactory->create(LoginForm::class);
         $form->handleRequest($request);
-
         $data = $form->getData();
-
         $request->getSession()->set(
             Security::LAST_USERNAME,
             $data['_username']
@@ -70,20 +62,16 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $username = $credentials['_username'];
-
         return $this->em->getRepository('AppBundle:User')
             ->findOneBy(['email' => $username]);
-
     }
 
     public function checkCredentials($credentials, UserInterface $user)
     {
         $password = $credentials['_password'];
-
         if ($this->passwordEncoder->isPasswordValid($user, $password)) {
             return true;
         }
-
         return false;
     }
 
@@ -95,12 +83,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
-
         if (!$targetPath) {
             $targetPath = $this->router->generate('homepage');
         }
-
         return new RedirectResponse($targetPath);
     }
-
 }

@@ -8,7 +8,6 @@
 
 namespace AppBundle\Form\TypeExtension;
 
-
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormInterface;
