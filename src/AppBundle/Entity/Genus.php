@@ -212,8 +212,8 @@ class Genus
         return $this->getGenusScientists()->matching(GenusScientistRepository::createExpertCriteria());
     }
 
-//    public function __toString()
-//    {
-//        return $this->getName();
-//    }
+    public function __toString()
+    {
+       return (string) $this->getName();
+    }
 }

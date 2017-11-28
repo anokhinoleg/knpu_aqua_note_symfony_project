@@ -78,3 +78,58 @@ stof_doctrine_extensions:
     orm:
         default:
             sluggable: true
+
+easy_admin:
+    site_name: Aqua<i>Note</i>
+    design:
+        brand_color: '#81b9ba'
+        assets:
+            css: ['css/custom_backend.css']
+    list:
+        title: 'List of %%entity_label%%'
+        actions: ['show']
+    entities:
+        Genus:
+            class: AppBundle\Entity\Genus
+            label: Genuses
+            help: 'Genuses are not covered bu warrenty!'
+            list:
+                help: 'Do not feed'
+                actions:
+                    - { name: 'edit', icon: 'pencil', label: 'Edit' }
+                    - { name: 'show', icon: 'info-circle', label: '' }
+                fields:
+                    - 'id'
+                    - 'name'
+                    - 'isPublished'
+                    - { property: 'firstDiscoveredAt', format: 'Y M', label: 'Discovered' }
+                    - 'funFact'
+                    - { property: 'speciesCount ', format: '%b' }
+            search:
+                help: null
+                fields: ['id', 'name']
+        GenusNote:
+            class: AppBundle\Entity\GenusNote
+            label: 'Genus Notes'
+            list:
+                title: 'List of notes'
+                fields:
+                    - id
+                    - username
+                    - { property: 'userAvatarFilename', label: 'User avatar', type: 'image', base_path: '/images/' }
+                    - createdAt
+                    - genus
+        SubFamily:
+            class: AppBundle\Entity\SubFamily
+            # disabled_actions: ['show']
+            list:
+                actions: ['edit', 'search', '-delete', '-show']
+        User:
+            class: AppBundle\Entity\User
+            list:
+                fields:
+                    - id
+                    - { property: 'email', type: 'email' }
+                    - { property: 'isScientist', label: 'Is Scientist?', type: 'boolean' }
+                    - fullName
+                    - { property: 'avatarUri', type: 'url' }

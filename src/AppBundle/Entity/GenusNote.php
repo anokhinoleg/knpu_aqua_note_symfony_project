@@ -136,4 +136,9 @@ class GenusNote
     {
         $this->genus = $genus;
     }
+
+    public function __toString()
+    {
+        return (string) $this->getNote();
+    }
 }

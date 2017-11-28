@@ -5,3 +5,8 @@ homepage:
   path: /
   defaults:
     _controller: AppBundle:Main:homepage
+
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/AdminController.php"
+    type:     annotation
+    prefix:   /easyadmin

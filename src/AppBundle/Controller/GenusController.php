@@ -13,6 +13,7 @@ use AppBundle\Entity\GenusNote;
 use AppBundle\Entity\GenusScientist;
 use AppBundle\Entity\User;
 use AppBundle\Service\MarkdownTransformer;
+use function dump;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -69,6 +70,8 @@ class GenusController extends Controller
         $em = $this->getDoctrine()->getManager();
         $genuses = $em->getRepository('AppBundle:Genus')
             ->findAllPublishedOrderedByRecentlyActive();
+        $exp = $em->getRepository('AppBundle:GenusScientist')
+            ->findAllExperts();
         return $this->render('genus/list.html.twig', [
             'genuses' => $genuses,
         ]);
