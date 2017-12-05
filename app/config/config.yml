@@ -85,15 +85,19 @@ easy_admin:
         brand_color: '#81b9ba'
         assets:
             css: ['css/custom_backend.css']
+        templates:
+            field_id: 'admin/fields/_id.html.twig'
     list:
         title: 'List of %%entity_label%%'
         actions: ['show']
+
     entities:
         Genus:
             class: AppBundle\Entity\Genus
             label: Genuses
-            help: 'Genuses are not covered bu warrenty!'
+            help: 'Genuses are not covered by warrenty!'
             list:
+                sort: 'name'
                 help: 'Do not feed'
                 actions:
                     - { name: 'edit', icon: 'pencil', label: 'Edit' }
@@ -108,15 +112,18 @@ easy_admin:
             search:
                 help: null
                 fields: ['id', 'name']
+            # templates:
+                # field_id: 'admin/fields/_id.html.twig'
         GenusNote:
             class: AppBundle\Entity\GenusNote
             label: 'Genus Notes'
             list:
+                sort: ['genus.name', 'ASC']
                 title: 'List of notes'
                 fields:
                     - id
                     - username
-                    - { property: 'userAvatarFilename', label: 'User avatar', type: 'image', base_path: '/images/' }
+                    - { property: 'userAvatarFilename', label: 'User avatar', type: 'image', base_path: '/images/', sortable: false }
                     - createdAt
                     - genus
         SubFamily:
@@ -133,3 +140,13 @@ easy_admin:
                     - { property: 'isScientist', label: 'Is Scientist?', type: 'boolean' }
                     - fullName
                     - { property: 'avatarUri', type: 'url' }
+
+        GenusHorde:
+            class: AppBundle\Entity\Genus
+            label: HORDE of Genuses 😱 !!!
+            list:
+                dql_filter: 'entity.speciesCount >= 50000 AND entity.isPublished = true'
+                sort: 'speciesCount'
+                help: Run for your life!!! 😱😱😱
+            search:
+                dql_filter: 'entity.speciesCount >= 50000'
